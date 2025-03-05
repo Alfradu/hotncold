@@ -18,23 +18,6 @@ function App() {
     longitude: 0
   })
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-  } else {
-    console.log("Geolocation not supported");
-  }
-
-  function success(position: { coords: { latitude: number; longitude: number; }; }) {
-    setGeoLocation({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude
-    })
-  }
-
-  function error() {
-    console.log("Unable to retrieve your location");
-  }
-
   const [goal, setGoal] = useState({ latitude: 0, longitude: 0 });
   const [goalDistance, setGoalDistance] = useState(0);
   const [health, setHealth] = useState(78);
@@ -58,7 +41,18 @@ function App() {
       setTakingDmg(false);
     }, 500);
 
-    setGoalDistance(haversineDistanceKM(geoLocation.latitude, geoLocation.longitude, goal.latitude, goal.longitude))
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: { coords: { latitude: number; longitude: number; }; }) => {
+        setGeoLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        })
+        //TODO: initial haversine calc is wrong?? fix
+        setGoalDistance(haversineDistanceKM(position.coords.latitude, position.coords.longitude, goal.latitude, goal.longitude))
+      }, () => console.log("Unable to retrieve your location"));
+    } else {
+      console.log("Geolocation not supported");
+    }
   }, [health]);
 
   const HandleUpdateGoal = useCallback(() => {
