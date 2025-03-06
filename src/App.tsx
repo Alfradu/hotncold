@@ -2,8 +2,9 @@ import { useState, useCallback, useEffect } from 'react'
 import strangeDevice from './assets/strange-device.png'
 import './css/App.css'
 import Hitsplat from './hitsplat.tsx'
-import haversineDistanceKM from './utils/utils.tsx'
+import { headingToOrientation } from './utils/utils.tsx'
 import { geoGoal1, geoGoal2, geoTest } from './constants.tsx'
+import { headingDistanceTo, normalizeHeading } from 'geolocation-utils'
 
 function App() {
   const [geoLocation, setGeoLocation] = useState({
@@ -12,7 +13,7 @@ function App() {
   })
   const [testing, setTesting] = useState(true);
   const [goal, setGoal] = useState({ latitude: 0, longitude: 0 });
-  const [goalDistance, setGoalDistance] = useState(0);
+  const [goalDistance, setGoalDistance] = useState({heading: 0, distance: 0});
   const [health, setHealth] = useState(78);
   const [takingDmg, setTakingDmg] = useState(false);
   const [damage, setDamage] = useState(0);
@@ -50,14 +51,16 @@ function App() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
-        setGoalDistance(haversineDistanceKM(position.coords.latitude, position.coords.longitude, goal.latitude, goal.longitude))
+        const headingDist = headingDistanceTo(position.coords, goal);
+        setGoalDistance(headingDist);
       }, () => console.log("Unable to retrieve your location"), { enableHighAccuracy: true } );
     } else {
       setGeoLocation({
         latitude: geoTest.latitude,
         longitude: geoTest.longitude
-      })
-      setGoalDistance(haversineDistanceKM(geoTest.latitude, geoTest.longitude, goal.latitude, goal.longitude))
+      });
+      const headingDist = headingDistanceTo(geoTest, goal);
+      setGoalDistance(headingDist);
     }
     setTimeout(() => {
       setTakingDmg(false);
@@ -86,9 +89,11 @@ function App() {
       <input type="checkbox" id="testing" name="testing" checked={testing} onChange={() => setTesting(!testing)}></input>
       <input id="input" onChange={HandleUpdateGoal}></input>
       {testing &&
-        <><br></br><span>pos Lat {geoLocation.latitude} ,pos Long {geoLocation.longitude}</span>
-          <br></br><span>goal Lat {goal.latitude} ,goal Long {goal.longitude}</span>
-          <br></br><span>Distance: {goalDistance} m</span></>
+        <><br/><span>pos Lat {geoLocation.latitude} ,pos Long {geoLocation.longitude}</span>
+          <br/><span>goal Lat {goal.latitude} ,goal Long {goal.longitude}</span>
+          <br/><span>Distance: {Math.floor(goalDistance.distance)} m</span>
+          <br/><span>Heading: {headingToOrientation(normalizeHeading(goalDistance.heading))}</span>
+          </>
       }
       <h1>Strange Device</h1>
       {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}

@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist --nojekyll"
   },
   "dependencies": {
+    "geolocation-utils": "^1.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
