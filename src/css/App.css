@@ -5,12 +5,18 @@
   text-align: center;
 }
 
-.logo {
-  height: 100%;
-  width: 100%;
-  will-change: filter;
-  transition: filter 300ms;
-  animation: pulse 5s cubic-bezier(0.6, 0.4, 0.4, 0.5) infinite;
+.deviceBtn{
+  .logo {
+    height: 100%;
+    width: 100%;
+    will-change: filter;
+    transition: filter 300ms;
+    animation: pulse 5s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
+  }
+}
+.deviceBtn:disabled, .deviceBtn[disabled]{
+  cursor:not-allowed !important;
+  filter: grayscale(100%);
 }
 
 @keyframes pulse {
@@ -18,7 +24,7 @@
     filter: drop-shadow(0 0 0 #646cffaa);
   }
   50% {
-    filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 3em #646cffaa);
   }
 }
 

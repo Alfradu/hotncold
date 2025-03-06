@@ -35,7 +35,7 @@ function App() {
   }, [health, takingDmg]);
 
   const HandleUpdateDamage = useCallback(() => {
-    var currDmg = Math.floor(Math.random() * 10) + 1;
+    var currDmg = Math.floor(Math.random() * 10) + 3;
     if (health == 0) return;
     setTakingDmg(true);
     setDamage(currDmg);
@@ -86,6 +86,12 @@ function App() {
 
   return (
     <>
+      <h1>Strange Device</h1>
+      {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
+      <progress className="healthBar" id="health" value={health} max="78"></progress>
+      <button className="deviceBtn" disabled={goal.latitude == 0 && goal.latitude == 0} onClick={() => !takingDmg && HandleUpdateDamage()}>
+        <img src={strangeDevice} className="logo" alt="strange device" />
+      </button>
       <input type="checkbox" id="testing" name="testing" checked={testing} onChange={() => setTesting(!testing)}></input>
       <input id="input" onChange={HandleUpdateGoal}></input>
       {testing &&
@@ -95,12 +101,6 @@ function App() {
           <br/><span>Heading: {headingToOrientation(normalizeHeading(goalDistance.heading))}</span>
           </>
       }
-      <h1>Strange Device</h1>
-      {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
-      <progress className="healthBar" id="health" value={health} max="78"></progress>
-      <button onClick={() => !takingDmg && HandleUpdateDamage()}>
-        <img src={strangeDevice} className="logo" alt="strange device" />
-      </button>
     </>
   )
 }
