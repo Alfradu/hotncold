@@ -91,7 +91,7 @@ function App() {
           <br></br><span>Distance: {goalDistance} m</span></>
       }
       <h1>Strange Device</h1>
-      {health > 0 && takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
+      {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
       <progress className="healthBar" id="health" value={health} max="78"></progress>
       <button onClick={() => !takingDmg && HandleUpdateDamage()}>
         <img src={strangeDevice} className="logo" alt="strange device" />
