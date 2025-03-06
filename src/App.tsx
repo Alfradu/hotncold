@@ -23,7 +23,9 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (health < 78 && !takingDmg) setHealth(health + 1);
+      if (health < 78 && !takingDmg) 
+        if (health +10 > 78) setHealth(78)
+        else setHealth(health + 10);
     }, 5 * 1000);
   
     return () => {
@@ -32,10 +34,12 @@ function App() {
   }, [health, takingDmg]);
 
   const HandleUpdateDamage = useCallback(() => {
+    var currDmg = Math.floor(Math.random() * 10) + 1;
+    if (health == 0) return;
     setTakingDmg(true);
-    var currDmg = Math.floor(Math.random() * 10) + 1
     setDamage(currDmg);
-    setHealth(health - currDmg);
+    if (health-currDmg < 0) setHealth(0);
+    else setHealth(health-currDmg);
     setHitsplatPosition({
       x: (Math.random() * 300) + window.innerWidth / 2 - 150,
       y: (Math.random() * 300) + window.innerHeight / 2 - 150
@@ -87,8 +91,7 @@ function App() {
           <br></br><span>Distance: {goalDistance} m</span></>
       }
       <h1>Strange Device</h1>
-      {health > 1 && takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
-      <span>{health}</span>
+      {health > 0 && takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
       <progress className="healthBar" id="health" value={health} max="78"></progress>
       <button onClick={() => !takingDmg && HandleUpdateDamage()}>
         <img src={strangeDevice} className="logo" alt="strange device" />
