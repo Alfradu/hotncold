@@ -86,7 +86,7 @@ function App() {
 
   return (
     <>
-      <h1>Strange Device</h1>
+      <h2>Strange Device</h2>
       {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
       <progress className="healthBar" id="health" value={health} max="78"></progress>
       <button className="deviceBtn" disabled={goal.latitude == 0 && goal.latitude == 0} onClick={() => !takingDmg && HandleUpdateDamage()}>
