@@ -51,7 +51,7 @@ function App() {
           longitude: position.coords.longitude
         })
         setGoalDistance(haversineDistanceKM(position.coords.latitude, position.coords.longitude, goal.latitude, goal.longitude))
-      }, () => console.log("Unable to retrieve your location"));
+      }, () => console.log("Unable to retrieve your location"), { enableHighAccuracy: true } );
     } else {
       setGeoLocation({
         latitude: geoTest.latitude,
