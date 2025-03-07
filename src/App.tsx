@@ -7,7 +7,7 @@ import { geoGoal1, geoGoal2, geoTest } from './constants.tsx'
 import { headingDistanceTo, normalizeHeading } from 'geolocation-utils'
 
 function App() {
-  const initGoal: string = JSON.parse(window.sessionStorage.getItem("goal") || "");
+  const initGoal: string = JSON.parse(window.sessionStorage.getItem("goal") || "null") || "";
   const initHealth: number = parseInt(window.sessionStorage.getItem("health") || "78");
   const [geoLocation, setGeoLocation] = useState({
     latitude: 0,
