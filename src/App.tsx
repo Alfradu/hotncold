@@ -2,13 +2,14 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import strangeDevice from './assets/strange-device.png';
 import './css/App.css';
 import Hitsplat from './hitsplat.tsx';
-import { geoGoal1, geoGoal2, geoTest } from './constants.tsx';
+import { geoGoal1, geoGoal2, geoTest, Level } from './constants.tsx';
 import {
   HeadingDistance,
   headingDistanceTo,
   LatitudeLongitude,
 } from 'geolocation-utils';
 import Stats from './Stats.tsx';
+import { calculateLevel } from './utils/utils.tsx';
 
 function App() {
   const initGoal: string = window.sessionStorage.getItem('goal') || '';
@@ -36,7 +37,7 @@ function App() {
     x: 0,
     y: 0,
   });
-  const [orbText, setOrbText] = useState('asdasd');
+  const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: "" });
 
   //todo remove?
   const [testing, setTesting] = useState<boolean>(true);
@@ -101,6 +102,9 @@ function App() {
       const headingDist = headingDistanceTo(geoTest, goalLoc);
       setGoalDistance(headingDist);
     }
+    //TODO: save initial distance and calculate level based on it 
+    const level = calculateLevel(Math.floor(Math.random() * 7) + 1);
+    setOrbText(level);
     setTimeout(() => {
       setTakingDmg(false);
     }, 500);
@@ -168,7 +172,14 @@ function App() {
         testing={testing}
         updateTesting={(testing: boolean) => setTesting(testing)}
       />
-      <h2 className="footer">{orbText}</h2>
+      <h2 className="footer">
+        <span>
+          {orbText.feel}
+        </span>
+        <span>
+          {orbText.info}
+        </span>
+      </h2>
     </>
   );
 }
