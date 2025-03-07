@@ -159,6 +159,7 @@ function App() {
         onChange={HandleUpdateGoal}
       ></input>
       <button
+        type="button"
         className="deviceBtn"
         disabled={goal == ''}
         onClick={() => !takingDmg && HandleUpdateDamage()}
