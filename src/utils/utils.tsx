@@ -16,9 +16,9 @@ export const calculateLevel = (distance: number): Level => {
 }
 
 export const calculateHitSplatLocation = (): Coordinate => {
-    const centerWidth = window.innerWidth / 2;
-    const centerHeight = window.innerHeight / 2;
-    const x = (Math.random() * 100) + centerWidth - 300;
-    const y = (Math.random() * 100) + centerHeight - 300;
+    const centerWidth = window.innerHeight < 600 ? window.innerWidth / 2 - 28 : 300 - 28;
+    const centerHeight = window.innerHeight / 2 - 100 - 28;
+    const x = centerWidth + (Math.random() * 250) - 250;
+    const y = centerHeight + (Math.random() * 200) - 100;
     return { x, y };
 }

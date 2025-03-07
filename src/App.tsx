@@ -74,7 +74,7 @@ function App() {
 
   const HandleUpdateDamage = useCallback(() => {
     const currDmg = Math.floor(Math.random() * 10) + 3;
-    if (health == 0) return;
+    if (health == 0 && !testing) return;
     setTakingDmg(true);
     setDamage(currDmg);
     setHealth(health - currDmg < 0 ? 0 : health - currDmg);
