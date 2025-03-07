@@ -36,7 +36,7 @@ const Stats = ({
                     <span>Distance: {Math.floor(goalDistance.distance)} m</span>
                     <span>
                         Heading:{' '}
-                        {headingToOrientation(normalizeHeading(goalDistance.heading))}
+                        {headingToOrientation(normalizeHeading(goalDistance.heading), true)}
                     </span>
                 </>
             )}

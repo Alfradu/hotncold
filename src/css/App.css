@@ -1,30 +1,77 @@
 #root {
-	background-image: url('/src/assets/Inventory_tab.png');
-	image-rendering: pixelated;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: contain;
-	max-width: 1280px;
+	max-width: 600px;
+	position: fixed;
+	top: 1.5em;
+	left: 0;
 	margin: 0 auto;
-	padding: 2rem;
+	padding-top: 1rem;
+	padding-bottom: 2rem;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
+	width: 100%;
+}
+
+.inventory-tab-background {
+	background-image: url('/src/assets/Inventory_tab.png');
+	image-rendering: pixelated;
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: contain;
+}
+
+.healthBar {
+	max-width: 600px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2.5em;
+	border-radius: 0;
+	z-index: 2;
+}
+
+.stats {
+	color: white;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-end;
+	z-index: 6;
+}
+
+@media (min-width: 601px) {
+	#root {
+		left: 50%;
+		transform: translateX(-50%); /* Centers the element */
+	}
+	.healthBar {
+		top: -1.5em;
+		left: 50%;
+		transform: translateX(-50%); /* Centers the element */
+	}
+	.stats {
+		bottom: 4.5em;
+	}
 }
 
 h2 {
+	margin: 10px;
 	z-index: 4;
 }
+
 .deviceBtn {
 	z-index: 4;
 	display: flex;
 	justify-content: center;
-	margin: 10% auto;
 	max-width: 600px;
 	.logo {
-		height: 100%;
-		width: 100%;
+		height: 90%;
+		width: 90%;
 		will-change: filter;
 		transition: filter 300ms;
 		animation: pulse 5s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
@@ -39,14 +86,15 @@ h2 {
 @keyframes pulse {
 	0%,
 	100% {
-		filter: drop-shadow(0 0 0 #646cffaa);
+		filter: drop-shadow(0 0 0 #262fe7aa);
 	}
 	50% {
-		filter: drop-shadow(0 0 3em #646cffaa);
+		filter: drop-shadow(0 0 4em #0d17d6aa);
 	}
 }
 
 .hitsplat {
+	color: white;
 	aspect-ratio: 1 / 1;
 	pointer-events: none;
 	width: 15%;
@@ -77,16 +125,6 @@ h2 {
 	}
 }
 
-.healthBar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 2.5em;
-	border-radius: 0;
-	z-index: 2;
-}
-
 /* background: */
 progress::-webkit-progress-bar {
 	background-color: red;
@@ -113,7 +151,7 @@ progress {
 	padding: 0;
 	width: 8.2em;
 	border: 0px solid #646cffaa;
-	color: white;
+	color: #ffff00;
 	font-family: OSRS, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-size: 1.3em;
 	text-align: center;
@@ -122,31 +160,17 @@ progress {
 }
 
 .footer {
-	margin: 0;
-	position: fixed;
-	bottom: 0;
-	left: 0;
+	margin-top: 40px;
 	width: 100%;
 	height: auto;
 	min-height: 3em;
 	border-radius: 0;
 	text-align: center;
-	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
 	z-index: 5;
 	display: flex;
 	flex-direction: column;
-}
-
-.stats {
-	position: fixed;
-	bottom: 6em;
-	left: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-end;
-	z-index: 6;
+	max-width: 600px;
 }

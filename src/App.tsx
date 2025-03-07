@@ -7,9 +7,10 @@ import {
   HeadingDistance,
   headingDistanceTo,
   LatitudeLongitude,
+  normalizeHeading,
 } from 'geolocation-utils';
 import Stats from './Stats.tsx';
-import { calculateLevel } from './utils/utils.tsx';
+import { calculateHitSplatLocation, calculateLevel, Coordinate, headingToOrientation } from './utils/utils.tsx';
 
 function App() {
   const initGoal: string = window.sessionStorage.getItem('goal') || '';
@@ -33,7 +34,7 @@ function App() {
   const [health, setHealth] = useState<number>(initHealth);
   const [takingDmg, setTakingDmg] = useState<boolean>(false);
   const [damage, setDamage] = useState<number>(0);
-  const [hitsplatPosition, setHitsplatPosition] = useState({
+  const [hitsplatPosition, setHitsplatPosition] = useState<Coordinate>({
     x: 0,
     y: 0,
   });
@@ -77,10 +78,7 @@ function App() {
     setTakingDmg(true);
     setDamage(currDmg);
     setHealth(health - currDmg < 0 ? 0 : health - currDmg);
-    setHitsplatPosition({
-      x: Math.random() * 300 + window.innerWidth / 2 - 150,
-      y: Math.random() * 300 + window.innerHeight / 2 - 150,
-    });
+    setHitsplatPosition(calculateHitSplatLocation())
     if (navigator.geolocation && !testing) {
       navigator.geolocation.getCurrentPosition(
         (position: { coords: LatitudeLongitude }) => {
@@ -143,44 +141,52 @@ function App() {
         value={health}
         max="78"
       ></progress>
-      <h1>Strange Device</h1>
-      {takingDmg && (
-        <Hitsplat
-          x={hitsplatPosition.x}
-          y={hitsplatPosition.y}
-          damage={damage}
+      <div className="inventory-tab-background">
+        <h2>Strange Device</h2>
+        {takingDmg && (
+          <Hitsplat
+            x={hitsplatPosition.x}
+            y={hitsplatPosition.y}
+            damage={damage}
+          />
+        )}
+        <input
+          className="input"
+          placeholder="Calibrate device"
+          id="input"
+          ref={inputRef}
+          onChange={HandleUpdateGoal}
+        ></input>
+        <button
+          type="button"
+          className="deviceBtn"
+          disabled={goal == ''}
+          onClick={() => !takingDmg && HandleUpdateDamage()}
+        >
+          <img src={strangeDevice} className="logo" alt="strange device" />
+        </button>
+        <Stats
+          geoLocation={geoLocation}
+          goalLoc={goalLoc}
+          goalDistance={goalDistance}
+          testing={testing}
+          updateTesting={(testing: boolean) => setTesting(testing)}
         />
-      )}
-      <input
-        className="input"
-        placeholder="Calibrate device"
-        id="input"
-        ref={inputRef}
-        onChange={HandleUpdateGoal}
-      ></input>
-      <button
-        type="button"
-        className="deviceBtn"
-        disabled={goal == ''}
-        onClick={() => !takingDmg && HandleUpdateDamage()}
-      >
-        <img src={strangeDevice} className="logo" alt="strange device" />
-      </button>
-      <Stats
-        geoLocation={geoLocation}
-        goalLoc={goalLoc}
-        goalDistance={goalDistance}
-        testing={testing}
-        updateTesting={(testing: boolean) => setTesting(testing)}
-      />
-      <h2 className="footer">
-        <span>
-          {orbText.feel}
-        </span>
-        <span>
-          {orbText.info}
-        </span>
-      </h2>
+        <h2 className="footer">
+          <span>
+            {orbText.feel}
+          </span>
+          <span>
+            {orbText.info}
+          </span>
+          <span>
+            {orbText.feel && "The orb pulls towards the " + headingToOrientation(normalizeHeading(goalDistance.heading))}
+          </span>
+          <span>
+            {orbText.distance && orbText.distance + " meters"}
+          </span>
+        </h2>
+      </div>
     </>
   );
 }
