@@ -6,17 +6,23 @@ import { headingToOrientation } from './utils/utils.tsx'
 import { geoGoal1, geoGoal2, geoTest } from './constants.tsx'
 import { headingDistanceTo, normalizeHeading } from 'geolocation-utils'
 
+type location = {
+  latitude: number,
+  longitude: number
+}
+
 function App() {
-  const initGoal: string = JSON.parse(window.sessionStorage.getItem("goal") || "null") || "";
+  const initGoal: string = window.sessionStorage.getItem("goal") || "";
+  const initGoalLoc: location = JSON.parse(window.sessionStorage.getItem("goalLoc") || "null") || { latitude: 0, longitude: 0 };
   const initHealth: number = parseInt(window.sessionStorage.getItem("health") || "78");
-  const [geoLocation, setGeoLocation] = useState({
+  const [geoLocation, setGeoLocation] = useState<location>({
     latitude: 0,
     longitude: 0
   })
   const inputRef = useRef<HTMLInputElement>(null);
   const [testing, setTesting] = useState<boolean>(true);
-  const [goal, setGoal] = useState<string>("");
-  const [goalLoc, setGoalLoc] = useState({ latitude: 0, longitude: 0});
+  const [goal, setGoal] = useState<string>(""); //goal needs to be set empty here to avoid things with input field
+  const [goalLoc, setGoalLoc] = useState<location>(initGoalLoc);
   const [goalDistance, setGoalDistance] = useState({ heading: 0, distance: 0 });
   const [health, setHealth] = useState<number>(initHealth);
   const [takingDmg, setTakingDmg] = useState<boolean>(false);
@@ -38,8 +44,9 @@ function App() {
 
   useEffect(() => {
     window.sessionStorage.setItem("health", health.toString());
-    window.sessionStorage.setItem("goal", JSON.stringify(goal));
-  }, [health, goal]);
+    window.sessionStorage.setItem("goal", goal);
+    window.sessionStorage.setItem("goalLoc", JSON.stringify(goalLoc));
+  }, [health, goal, goalLoc]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -65,7 +72,7 @@ function App() {
       y: (Math.random() * 300) + window.innerHeight / 2 - 150
     });
     if (navigator.geolocation && !testing) {
-      navigator.geolocation.getCurrentPosition((position: { coords: { latitude: number; longitude: number; }; }) => {
+      navigator.geolocation.getCurrentPosition((position: { coords: location; }) => {
         setGeoLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
