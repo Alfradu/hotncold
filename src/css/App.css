@@ -87,6 +87,17 @@ progress {
 	background-color: red;
 }
 
+/* value: */
+progress::-webkit-progress-value {
+	background-color: green !important;
+}
+progress::-moz-progress-bar {
+	background-color: green !important;
+}
+progress {
+	color: green;
+}
+
 .input {
 	margin: 0 auto;
 	height: 2em;
