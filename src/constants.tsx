@@ -17,7 +17,7 @@ export type Level = {
     distance: string
 }
 
-export const levels = [
+export const levels: Level[] = [
     { feel: 'The Device is Ice Cold', info: 'You are no where near the dig spot.', distance: '500+' },
     { feel: 'The Device is Very Cold', info: 'You are very far away from the dig spot.', distance: '200 - 499' },
     { feel: 'The Device is Cold', info: 'You are far away from the dig spot.', distance: '150 - 199' },
