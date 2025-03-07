@@ -1,16 +1,16 @@
 import { JSX } from 'react'
 import hitSplat from './assets/hitsplat.png'
 
-type HitsplatProps = {
+type Props = {
     x: number
     y: number
     damage: number
 }
-const Hitsplat: React.FC<HitsplatProps> = ({
+const Hitsplat = ({
     x,
     y,
     damage
-}): JSX.Element => {
+}: Props): JSX.Element => {
     return (
         <div className="hitsplat" style={{
             left: x,
