@@ -105,10 +105,10 @@ function App() {
 
   return (
     <>
+      <progress className="healthBar" id="health" value={health} max="78"></progress>
       <h2>Strange Device</h2>
       {takingDmg && <Hitsplat x={hitsplatPosition.x} y={hitsplatPosition.y} damage={damage} />}
-      <progress className="healthBar" id="health" value={health} max="78"></progress>
-      <input className="input" placeholder="Point device to goal" id="input" ref={inputRef} onChange={HandleUpdateGoal}></input>
+      <input className="input" placeholder="Calibrate device" id="input" ref={inputRef} onChange={HandleUpdateGoal}></input>
       <button className="deviceBtn" disabled={goal == ""} onClick={() => !takingDmg && HandleUpdateDamage()}>
         <img src={strangeDevice} className="logo" alt="strange device" />
       </button>
