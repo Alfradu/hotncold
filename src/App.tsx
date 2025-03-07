@@ -143,7 +143,7 @@ function App() {
         value={health}
         max="78"
       ></progress>
-      <h2>Strange Device</h2>
+      <h1>Strange Device</h1>
       {takingDmg && (
         <Hitsplat
           x={hitsplatPosition.x}
