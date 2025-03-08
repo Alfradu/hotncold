@@ -19,6 +19,9 @@
 	background-repeat: no-repeat;
 	background-position: top;
 	background-size: contain;
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
 }
 
 .healthBar {
@@ -70,8 +73,7 @@ h2 {
 	justify-content: center;
 	max-width: 600px;
 	.logo {
-		height: 90%;
-		width: 90%;
+		width: 60%;
 		will-change: filter;
 		transition: filter 300ms;
 		animation: pulse 5s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
@@ -160,7 +162,6 @@ progress {
 }
 
 .footer {
-	margin-top: 40px;
 	width: 100%;
 	height: auto;
 	min-height: 3em;
