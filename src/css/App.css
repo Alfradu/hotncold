@@ -9,8 +9,8 @@
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	min-height: 100%;
 	width: 100%;
+	height: 100vh;
 }
 
 .inventory-tab-background {
@@ -20,8 +20,9 @@
 	background-position: top;
 	background-size: contain;
 	width: 100%;
-	height: 100%;
+	height: 97vh;
 	background-size: 100% 100%;
+
 }
 
 .healthBar {
@@ -38,8 +39,8 @@
 .stats {
 	color: white;
 	position: fixed;
-	bottom: 0;
-	left: 0;
+	bottom: 1.5em;
+	left: 24px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -58,12 +59,13 @@
 		transform: translateX(-50%); /* Centers the element */
 	}
 	.stats {
-		bottom: 4.5em;
+		bottom: 6.5em;
 	}
 }
 
 h2 {
-	margin: 10px;
+	margin-top: 24px;
+	margin-bottom: 4px;
 	z-index: 4;
 }
 
@@ -162,7 +164,7 @@ progress {
 }
 
 .footer {
-	width: 100%;
+	margin-top: 8px;
 	height: auto;
 	min-height: 3em;
 	border-radius: 0;

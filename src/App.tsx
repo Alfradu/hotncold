@@ -180,7 +180,7 @@ function App() {
             {orbText.info}
           </span>
           <span>
-            {orbText.feel && "The orb pulls towards the " + headingToOrientation(normalizeHeading(goalDistance.heading))}
+            {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
           <span>
             {orbText.distance && orbText.distance + " meters"}

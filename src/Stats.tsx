@@ -41,16 +41,6 @@ const Stats = ({
                 </>
             )}
             <span>
-                testing mode
-                <input
-                    type="checkbox"
-                    id="testing"
-                    name="testing"
-                    checked={testing}
-                    onChange={() => updateTesting(!testing)}
-                ></input>
-            </span>
-            <span>
                 show stats
                 <input
                     type="checkbox"
@@ -58,6 +48,16 @@ const Stats = ({
                     name="stats"
                     checked={showStats}
                     onChange={() => setShowStats(!showStats)}
+                ></input>
+            </span>
+            <span>
+                testing mode
+                <input
+                    type="checkbox"
+                    id="testing"
+                    name="testing"
+                    checked={testing}
+                    onChange={() => updateTesting(!testing)}
                 ></input>
             </span>
         </div>
