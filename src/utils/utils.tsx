@@ -12,7 +12,12 @@ export const headingToOrientation = (bearing: number, debug: boolean = false): s
 }
 
 export const calculateLevel = (distance: number): Level => {
-    return levels[distance];
+    for (let i = 0; i < levels.length; i++) {
+        if (distance >= levels[i].distance) {
+            return levels[i];
+        }
+    }
+    return levels[levels.length - 1];
 }
 
 export const calculateHitSplatLocation = (): Coordinate => {

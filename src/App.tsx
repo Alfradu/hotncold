@@ -38,7 +38,7 @@ function App() {
     x: 0,
     y: 0,
   });
-  const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: "" });
+  const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0 });
 
   //todo remove?
   const [testing, setTesting] = useState<boolean>(true);
@@ -100,13 +100,12 @@ function App() {
       const headingDist = headingDistanceTo(geoTest, goalLoc);
       setGoalDistance(headingDist);
     }
-    //TODO: save initial distance and calculate level based on it 
-    const level = calculateLevel(Math.floor(Math.random() * 7) + 1);
+    const level = calculateLevel(goalDistance.distance);
     setOrbText(level);
     setTimeout(() => {
       setTakingDmg(false);
     }, 500);
-  }, [health, goalLoc, testing]);
+  }, [health, testing, goalDistance.distance, goalLoc]);
 
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,7 +182,7 @@ function App() {
             {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
           <span>
-            {orbText.distance && orbText.distance + " meters"}
+            {orbText.feel && Math.floor(goalDistance.distance) + " meters"}
           </span>
         </h2>
       </div>
