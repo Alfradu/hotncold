@@ -66,7 +66,7 @@ function App() {
 
   const HandleUpdateDamage = useCallback(() => {
     const currDmg = Math.floor(Math.random() * 10) + 3;
-    if (health == 0) return;
+    if (health == 0 || takingDmg) return;
     setTakingDmg(true);
     setDamage(currDmg);
     setHealth(health - currDmg < 0 ? 0 : health - currDmg);
@@ -92,7 +92,7 @@ function App() {
       setTakingDmg(false);
       return;
     }
-  }, [health, goalLoc]);
+  }, [health, takingDmg, goalLoc]);
 
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
