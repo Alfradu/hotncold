@@ -24,6 +24,6 @@ export const calculateHitSplatLocation = (): Coordinate => {
     const centerWidth = window.innerHeight < 600 ? window.innerWidth / 2 - 28 : 300 - 28;
     const centerHeight = window.innerHeight / 2 - 100 - 28;
     const x = centerWidth + (Math.random() * 250) - 250;
-    const y = centerHeight + (Math.random() * 200) - 100;
+    const y = centerHeight + (Math.random() * 200) - 200;
     return { x, y };
 }

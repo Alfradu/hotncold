@@ -10,16 +10,12 @@ type Props = {
     geoLocation: LatitudeLongitude;
     goalLoc: LatitudeLongitude;
     goalDistance: HeadingDistance;
-    testing: boolean;
-    updateTesting: (testing: boolean) => void;
 };
 
 const Stats = ({
     geoLocation,
     goalLoc,
     goalDistance,
-    testing,
-    updateTesting,
 }: Props): JSX.Element => {
     const [showStats, setShowStats] = useState<boolean>(false);
 
@@ -48,16 +44,6 @@ const Stats = ({
                     name="stats"
                     checked={showStats}
                     onChange={() => setShowStats(!showStats)}
-                ></input>
-            </span>
-            <span>
-                testing mode
-                <input
-                    type="checkbox"
-                    id="testing"
-                    name="testing"
-                    checked={testing}
-                    onChange={() => updateTesting(!testing)}
                 ></input>
             </span>
         </div>

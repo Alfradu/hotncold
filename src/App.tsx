@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import strangeDevice from './assets/strange-device.png';
 import './css/App.css';
 import Hitsplat from './hitsplat.tsx';
-import { geoGoal1, geoGoal2, geoTest, Level } from './constants.tsx';
+import { geoGoal1, geoGoal2, Level } from './constants.tsx';
 import {
   HeadingDistance,
   headingDistanceTo,
@@ -40,9 +40,6 @@ function App() {
   });
   const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0 });
 
-  //todo remove?
-  const [testing, setTesting] = useState<boolean>(true);
-
   useEffect(() => {
     setGoal(initGoal);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,12 +71,12 @@ function App() {
 
   const HandleUpdateDamage = useCallback(() => {
     const currDmg = Math.floor(Math.random() * 10) + 3;
-    if (health == 0 && !testing) return;
+    if (health == 0) return;
     setTakingDmg(true);
     setDamage(currDmg);
     setHealth(health - currDmg < 0 ? 0 : health - currDmg);
     setHitsplatPosition(calculateHitSplatLocation())
-    if (navigator.geolocation && !testing) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: { coords: LatitudeLongitude }) => {
           setGeoLocation({
@@ -88,24 +85,19 @@ function App() {
           });
           const headingDist = headingDistanceTo(position.coords, goalLoc);
           setGoalDistance(headingDist);
+          setOrbText(calculateLevel(headingDist.distance));
         },
         () => console.log('Unable to retrieve your location'),
         { enableHighAccuracy: true }
       );
     } else {
-      setGeoLocation({
-        latitude: geoTest.latitude,
-        longitude: geoTest.longitude,
-      });
-      const headingDist = headingDistanceTo(geoTest, goalLoc);
-      setGoalDistance(headingDist);
+      console.log('Unable to retrieve your location');
+      return;
     }
-    const level = calculateLevel(goalDistance.distance);
-    setOrbText(level);
     setTimeout(() => {
       setTakingDmg(false);
     }, 500);
-  }, [health, testing, goalDistance.distance, goalLoc]);
+  }, [health, goalLoc]);
 
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,8 +160,6 @@ function App() {
           geoLocation={geoLocation}
           goalLoc={goalLoc}
           goalDistance={goalDistance}
-          testing={testing}
-          updateTesting={(testing: boolean) => setTesting(testing)}
         />
         <h2 className="footer">
           <span>
