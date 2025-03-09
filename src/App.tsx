@@ -9,7 +9,6 @@ import {
   LatitudeLongitude,
   normalizeHeading,
 } from 'geolocation-utils';
-import Stats from './Stats.tsx';
 import { calculateHitSplatLocation, calculateLevel, Coordinate, headingToOrientation } from './utils/utils.tsx';
 
 function App() {
@@ -20,10 +19,6 @@ function App() {
   const initHealth: number = parseInt(
     window.sessionStorage.getItem('health') || '78'
   );
-  const [geoLocation, setGeoLocation] = useState<LatitudeLongitude>({
-    latitude: 0,
-    longitude: 0,
-  });
   const inputRef = useRef<HTMLInputElement>(null);
   const [goal, setGoal] = useState<string>(''); //goal needs to be set empty here to avoid things with input field
   const [goalLoc, setGoalLoc] = useState<LatitudeLongitude>(initGoalLoc);
@@ -38,7 +33,7 @@ function App() {
     x: 0,
     y: 0,
   });
-  const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0 });
+  const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0, style: "" });
 
   useEffect(() => {
     setGoal(initGoal);
@@ -79,24 +74,24 @@ function App() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: { coords: LatitudeLongitude }) => {
-          setGeoLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
           const headingDist = headingDistanceTo(position.coords, goalLoc);
           setGoalDistance(headingDist);
           setOrbText(calculateLevel(headingDist.distance));
+          setTimeout(() => {
+            setTakingDmg(false);
+          }, 500);
         },
-        () => console.log('Unable to retrieve your location'),
+        () => {
+          console.log('Unable to retrieve your location');
+          setTakingDmg(false);
+        },
         { enableHighAccuracy: true }
       );
     } else {
       console.log('Unable to retrieve your location');
+      setTakingDmg(false);
       return;
     }
-    setTimeout(() => {
-      setTakingDmg(false);
-    }, 500);
   }, [health, goalLoc]);
 
   const HandleUpdateGoal = useCallback(
@@ -150,18 +145,14 @@ function App() {
         ></input>
         <button
           type="button"
-          className="deviceBtn"
+          style={{ filter: orbText.style + (goal == '' ? ' grayscale(100%)' : '') }}
+          className={orbText.feel && orbText.distance <= 5 ? "deviceBtnShake" : "deviceBtn"}
           disabled={goal == ''}
           onClick={() => !takingDmg && HandleUpdateDamage()}
         >
           <img src={strangeDevice} className="logo" alt="strange device" />
         </button>
-        <Stats
-          geoLocation={geoLocation}
-          goalLoc={goalLoc}
-          goalDistance={goalDistance}
-        />
-        <h2 className="footer">
+        <h2 className="info">
           <span>
             {orbText.feel}
           </span>

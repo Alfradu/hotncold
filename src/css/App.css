@@ -36,18 +36,6 @@
 	z-index: 2;
 }
 
-.stats {
-	color: white;
-	position: fixed;
-	bottom: 1.5em;
-	left: 24px;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-end;
-	z-index: 6;
-}
-
 @media (min-width: 601px) {
 	#root {
 		left: 50%;
@@ -84,7 +72,6 @@ h2 {
 .deviceBtn:disabled,
 .deviceBtn[disabled] {
 	cursor: not-allowed !important;
-	filter: grayscale(100%);
 }
 
 @keyframes pulse {
@@ -95,6 +82,37 @@ h2 {
 	50% {
 		filter: drop-shadow(0 0 4em #0d17d6aa);
 	}
+}
+
+.deviceBtnShake {
+	z-index: 4;
+	display: flex;
+	justify-content: center;
+	max-width: 600px;
+	.logo {
+		width: 60%;
+		will-change: filter;
+		transition: filter 300ms;
+		animation: shake 0.5s infinite, pulse 5s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
+	}
+}
+.deviceBtnShake:disabled,
+.deviceBtnShake[disabled] {
+	cursor: not-allowed !important;
+}
+
+@keyframes shake {
+0% { transform: translate(1px, 1px) rotate(0deg); }
+10% { transform: translate(-1px, -2px) rotate(-1deg); }
+20% { transform: translate(-3px, 0px) rotate(1deg); }
+30% { transform: translate(3px, 2px) rotate(0deg); }
+40% { transform: translate(1px, -1px) rotate(1deg); }
+50% { transform: translate(-1px, 2px) rotate(-1deg); }
+60% { transform: translate(-3px, 1px) rotate(0deg); }
+70% { transform: translate(3px, 1px) rotate(-1deg); }
+80% { transform: translate(-1px, -1px) rotate(1deg); }
+90% { transform: translate(1px, 2px) rotate(0deg); }
+100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 .hitsplat {
@@ -163,7 +181,7 @@ progress {
 	z-index: 4;
 }
 
-.footer {
+.info {
 	margin-top: 8px;
 	height: auto;
 	min-height: 3em;
