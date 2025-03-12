@@ -85,7 +85,11 @@ function App() {
           console.log('Unable to retrieve your location');
           setTakingDmg(false);
         },
-        { enableHighAccuracy: true }
+        {
+          enableHighAccuracy: true,
+          timeout: 0,
+          maximumAge: 0
+        }
       );
     } else {
       console.log('Unable to retrieve your location');
