@@ -87,7 +87,6 @@ function App() {
         },
         {
           enableHighAccuracy: true,
-          timeout: 0,
           maximumAge: 0
         }
       );
