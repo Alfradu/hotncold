@@ -34,6 +34,7 @@ function App() {
     y: 0,
   });
   const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0, style: "" });
+  const [teamSelected, setGoalSelected] = useState<boolean>(initGoal !== '');
 
   useEffect(() => {
     setGoal(initGoal);
@@ -48,9 +49,7 @@ function App() {
 
   useEffect(() => {
     window.sessionStorage.setItem('health', health.toString());
-    window.sessionStorage.setItem('goal', goal);
-    window.sessionStorage.setItem('goalLoc', JSON.stringify(goalLoc));
-  }, [health, goal, goalLoc]);
+  }, [health]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,20 +99,54 @@ function App() {
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const typedWord = event.target.value.toLowerCase();
-      const objective = objectives.find(o => o.goalKeyword === typedWord);
+      const objective = objectives.find(o => o.goalKeyword.toLowerCase() === typedWord);
 
       if (!objective) {
         return;
       }
+
+      setGoalSelected(true);
 
       setGoalLoc({
         latitude: objective.latitude,
         longitude: objective.longitude,
       });
       setGoal(objective.goalKeyword);
+
+      console.log("gello")
+      window.sessionStorage.setItem('goal', objective.goalKeyword);
+      window.sessionStorage.setItem('goalLoc', JSON.stringify(goalLoc));
     },
     [setGoalLoc, setGoal]
   );
+
+  const Reset = () => {
+    setGoal('');
+    setGoalSelected(false);
+    setOrbText({ feel: "", info: "", distance: 0, style: "" });
+    window.sessionStorage.removeItem('goal');
+    window.sessionStorage.removeItem('goalLoc');
+  }
+
+  const InputOrCurrentTarget = teamSelected ?
+    <div style={{ fontSize: 26 }}>
+      <span style={{ verticalAlign: 'middle' }}>Calibration: {goal.toUpperCase()}</span>
+      <span style={{ verticalAlign: 'middle', marginLeft: 6 }}>
+        <span className='resetbutton' onClick={Reset} /></span>
+    </div> :
+    <input
+      className="input"
+      placeholder="Calibrate device"
+      id="input"
+      ref={inputRef}
+      onChange={(e) => {
+        HandleUpdateGoal(e);
+        if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())) {
+          // if we have typed a goal, blur to disable phone keyword;
+          e.target.blur();
+        }
+      }}
+    />
 
   return (<div id='root' style={{ filter: health === 0 ? 'grayscale(100%)' : '' }}>
     <progress
@@ -123,7 +156,7 @@ function App() {
       max="78" />
     <div className="wrapper">
       <div className='flexItemSmall'>
-        <h2>Strange Device</h2>
+        <h2 style={{ fontSize: 40 }}>Strange Device</h2>
         {takingDmg && (
           <Hitsplat
             x={hitsplatPosition.x}
@@ -131,19 +164,7 @@ function App() {
             damage={damage}
           />
         )}
-        <input
-          className="input"
-          placeholder="Calibrate device"
-          id="input"
-          ref={inputRef}
-          onChange={(e) => {
-            HandleUpdateGoal(e);
-            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())) {
-              // if we have typed a goal, blur to disable phone keyword;
-              e.target.blur();
-            }
-          }}
-        />
+        {InputOrCurrentTarget}
       </div>
       <button
         type="button"

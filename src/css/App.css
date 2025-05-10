@@ -1,3 +1,11 @@
+body {
+  text-shadow: 
+  1px 1px 0 black,
+ -1px 1px 0 black,
+  1px -1px 0 black,
+ -1px -1px 0 black;
+}
+
 #root {
 	max-width: 600px;
 	left: 0;
@@ -42,6 +50,25 @@ h2 {
 	margin-top: 24px;
 	margin-bottom: 4px;
 	z-index: 4;
+}
+
+.resetbutton {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  user-select: none;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url('/src/assets/button.png');
+}
+
+.resetbutton:hover{
+  background-image: url('/src/assets/buttonpressed.png');
+}
+
+.resetbutton:active{
+  background-image: url('/src/assets/buttonpressed.png');
 }
 
 .deviceBtn {
