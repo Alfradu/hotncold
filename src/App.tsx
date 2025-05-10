@@ -113,11 +113,11 @@ function App() {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const typedWord = event.target.value.toLowerCase();
       const objective = objectives.find(o => o.goalKeyword.toLowerCase() === typedWord);
-      
+
       if (!objective) {
         return;
       }
-      
+
       setGoalSelected(true);
 
       setGoalLoc({
@@ -130,7 +130,7 @@ function App() {
       window.sessionStorage.setItem('goal', objective.goalKeyword);
       window.sessionStorage.setItem('goalLoc', JSON.stringify(goalLoc));
     },
-    [setGoalLoc, setGoal]
+    [goalLoc]
   );
 
   const Reset = () => {
@@ -139,13 +139,13 @@ function App() {
     setOrbText({ feel: "", info: "", distance: 0, style: "" });
     window.sessionStorage.removeItem('goal');
     window.sessionStorage.removeItem('goalLoc');
-  } 
+  }
 
   const InputOrCurrentTarget = teamSelected ?
     <div style={{ fontSize: 26 }}>
       <span style={{ verticalAlign: 'middle' }}>Calibration: {goal.toUpperCase()}</span>
       <span style={{ verticalAlign: 'middle', marginLeft: 6 }}>
-      <span className='resetbutton' onClick={Reset}/></span>
+        <span className='resetbutton' onClick={Reset} /></span>
     </div> :
     <input
       className="input"
@@ -154,11 +154,11 @@ function App() {
       ref={inputRef}
       onChange={(e) => {
         HandleUpdateGoal(e);
-        if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())){
+        if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())) {
           // if we have typed a goal, blur to disable phone keyword;
           e.target.blur();
         }
-      }}            
+      }}
     />
 
   return (<div id='root' style={{ filter: health === 0 ? 'grayscale(100%)' : '' }}>
@@ -207,7 +207,7 @@ function App() {
             {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
           <span className='flexItemSmall'>
-            {orbText.feel && Math.floor(goalDistance.distance) + " meters"}
+            {orbText.feel && Math.floor(goalDistance.distance) && Math.floor(goalDistance.distance) < 500 && + " meters"}
           </span>
         </h2>
       </div>
