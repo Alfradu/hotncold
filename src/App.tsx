@@ -101,7 +101,7 @@ function App() {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const typedWord = event.target.value.toLowerCase();
       const objective = objectives.find(o => o.goalKeyword === typedWord);
-      
+
       if (!objective) {
         return;
       }
@@ -138,12 +138,12 @@ function App() {
           ref={inputRef}
           onChange={(e) => {
             HandleUpdateGoal(e);
-            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())){
+            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())) {
               // if we have typed a goal, blur to disable phone keyword;
               e.target.blur();
             }
-          }}            
-          />
+          }}
+        />
       </div>
       <button
         type="button"
@@ -166,7 +166,7 @@ function App() {
             {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
           <span className='flexItemSmall'>
-            {orbText.feel && Math.floor(goalDistance.distance) + " meters"}
+            {orbText.feel && Math.floor(goalDistance.distance) && Math.floor(goalDistance.distance) < 500 && + " meters"}
           </span>
         </h2>
       </div>
