@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, act } from 'react';
 import strangeDevice from './assets/strange-device.png';
 import './css/App.css';
 import Hitsplat from './hitsplat.tsx';
@@ -35,6 +35,7 @@ function App() {
   });
   const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0, style: "" });
   const [teamSelected, setGoalSelected] = useState<boolean>(initGoal !== '');
+  const [activeTick, setActiveTick] = useState<number>(0);
   
   useEffect(() => {
     setGoal(initGoal);
@@ -48,20 +49,32 @@ function App() {
   }, [goal]);
 
   useEffect(() => {
-    window.sessionStorage.setItem('health', health.toString());
-  }, [health]);
-
-  useEffect(() => {
     const interval = setInterval(() => {
-      if (health < 78 && !takingDmg)
-        if (health + 10 > 78) setHealth(78);
-        else setHealth(health + 10);
-    }, 5 * 1000);
-
+      setActiveTick(old => {
+        if (old === 5) {
+          return 1;
+        }
+        return old + 1;
+      })
+    }, 600);
+    
     return () => {
       clearInterval(interval);
     };
-  }, [health, takingDmg]);
+
+  }, []);
+
+  useEffect(() => {
+    if (activeTick === 1) {
+      setHealth(old => {
+        return old + 3 > 78 ? 78 : old + 3;
+      });
+    }
+  }, [activeTick]);
+
+  useEffect(() => {
+    window.sessionStorage.setItem('health', health.toString());
+  }, [health]);
 
   const HandleUpdateDamage = useCallback(() => {
     const currDmg = Math.floor(Math.random() * 10) + 3;
@@ -154,6 +167,13 @@ function App() {
       id="health"
       value={health}
       max="78" />
+    <div className="amazingtext">
+      <span style={{ opacity: activeTick === 1 ? 1 : 0}}>1 </span>
+      <span style={{ opacity: activeTick === 2 ? 1 : 0}}>2 </span>
+      <span style={{ opacity: activeTick === 3 ? 1 : 0}}>3 </span>
+      <span style={{ opacity: activeTick === 4 ? 1 : 0}}>4 </span>
+      <span style={{ opacity: activeTick === 5 ? 1 : 0}}>5 </span>
+    </div>
     <div className="wrapper">
       <div className='flexItemSmall'>
         <h2 style={{ fontSize: 40 }}>Strange Device</h2>
