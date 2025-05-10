@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import strangeDevice from './assets/strange-device.png';
 import './css/App.css';
 import Hitsplat from './hitsplat.tsx';
-import { geoGoal1, geoGoal2, Level } from './constants.tsx';
+import { objectives, Level } from './constants.tsx';
 import {
   HeadingDistance,
   headingDistanceTo,
@@ -99,25 +99,19 @@ function App() {
 
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      switch (event.target.value.toLowerCase()) {
-        case 'goal1':
-          setGoalLoc({
-            latitude: geoGoal1.latitude,
-            longitude: geoGoal1.longitude,
-          });
-          setGoal('goal1');
-          break;
-        case 'goal2':
-          setGoalLoc({
-            latitude: geoGoal2.latitude,
-            longitude: geoGoal2.longitude,
-          });
-          setGoal('goal2');
-          break;
-        default:
-          setGoalLoc({ latitude: 0, longitude: 0 });
-          setGoal('');
+      var typedWord = event.target.value.toLowerCase();
+      var objective = objectives.find(o => o.goalKeyword === typedWord);
+      
+      if (!objective) {
+        return;
       }
+
+      setGoalLoc({
+        latitude: objective.latitude,
+        longitude: objective.longitude,
+      });
+      setGoal(objective.goalKeyword);
+      inputRef.current?.blur();
     },
     [setGoalLoc, setGoal]
   );
