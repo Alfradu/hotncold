@@ -111,7 +111,6 @@ function App() {
         longitude: objective.longitude,
       });
       setGoal(objective.goalKeyword);
-      inputRef.current?.blur();
     },
     [setGoalLoc, setGoal]
   );
@@ -138,7 +137,13 @@ function App() {
           placeholder="Calibrate device"
           id="input"
           ref={inputRef}
-          onChange={HandleUpdateGoal}
+          onChange={(e) => {
+            HandleUpdateGoal(e);
+            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value)){
+              // if we have typed a goal, blur to disable phone keyword;
+              e.target.blur();
+            }
+          }}            
         ></input>
         <button
           type="button"
