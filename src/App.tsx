@@ -36,6 +36,7 @@ function App() {
   const [orbText, setOrbText] = useState<Level>({ feel: "", info: "", distance: 0, style: "" });
   const [teamSelected, setGoalSelected] = useState<boolean>(initGoal !== '');
   const [activeTick, setActiveTick] = useState<number>(0);
+  const [tickUntilHeal, setTickUntilHeal] = useState<number>(10);
   
   useEffect(() => {
     setGoal(initGoal);
@@ -51,7 +52,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTick(old => {
-        if (old === 5) {
+        if (old === 2) {
           return 1;
         }
         return old + 1;
@@ -65,9 +66,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (activeTick === 1) {
+    setTickUntilHeal(old => old - 1 < 0 ? 9 : old - 1);
+
+    if (tickUntilHeal === 0) {
       setHealth(old => {
-        return old + 3 > 78 ? 78 : old + 3;
+        return old + 10 > 78 ? 78 : old + 10;
       });
     }
   }, [activeTick]);
@@ -170,9 +173,6 @@ function App() {
     <div className="amazingtext">
       <span style={{ opacity: activeTick === 1 ? 1 : 0}}>1 </span>
       <span style={{ opacity: activeTick === 2 ? 1 : 0}}>2 </span>
-      <span style={{ opacity: activeTick === 3 ? 1 : 0}}>3 </span>
-      <span style={{ opacity: activeTick === 4 ? 1 : 0}}>4 </span>
-      <span style={{ opacity: activeTick === 5 ? 1 : 0}}>5 </span>
     </div>
     <div className="wrapper">
       <div className='flexItemSmall'>
