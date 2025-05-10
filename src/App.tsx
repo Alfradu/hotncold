@@ -117,7 +117,7 @@ function App() {
       window.sessionStorage.setItem('goal', objective.goalKeyword);
       window.sessionStorage.setItem('goalLoc', JSON.stringify(goalLoc));
     },
-    [setGoalLoc, setGoal]
+    [goalLoc]
   );
 
   const Reset = () => {
