@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef, act } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import strangeDevice from './assets/strange-device.png';
 import './css/App.css';
 import Hitsplat from './hitsplat.tsx';
