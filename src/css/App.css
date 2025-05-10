@@ -44,6 +44,25 @@ h2 {
 	z-index: 4;
 }
 
+.resetbutton {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  user-select: none;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url('/src/assets/button.png');
+}
+
+.resetbutton:hover{
+  background-image: url('/src/assets/buttonpressed.png');
+}
+
+.resetbutton:active{
+  background-image: url('/src/assets/buttonpressed.png');
+}
+
 .deviceBtn {
 	z-index: 4;
 	display: flex;
