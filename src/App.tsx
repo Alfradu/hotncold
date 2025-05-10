@@ -124,11 +124,13 @@ function App() {
     setGoal('');
     setGoalSelected(false);
     setOrbText({ feel: "", info: "", distance: 0, style: "" });
+    window.sessionStorage.removeItem('goal');
+    window.sessionStorage.removeItem('goalLoc');
   } 
 
   const InputOrCurrentTarget = teamSelected ?
     <div style={{ fontSize: 26 }}>
-      <span style={{ verticalAlign: 'middle' }}>Current calibration: {goal.toUpperCase()}</span>
+      <span style={{ verticalAlign: 'middle' }}>Calibration: {goal.toUpperCase()}</span>
       <span style={{ verticalAlign: 'middle', marginLeft: 6 }}>
       <span className='resetbutton' onClick={Reset}/></span>
     </div> :
