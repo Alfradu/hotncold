@@ -99,8 +99,8 @@ function App() {
 
   const HandleUpdateGoal = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      var typedWord = event.target.value.toLowerCase();
-      var objective = objectives.find(o => o.goalKeyword === typedWord);
+      const typedWord = event.target.value.toLowerCase();
+      const objective = objectives.find(o => o.goalKeyword === typedWord);
       
       if (!objective) {
         return;
