@@ -1,11 +1,7 @@
 #root {
 	max-width: 600px;
-	position: fixed;
-	top: 1.5em;
 	left: 0;
 	margin: 0 auto;
-	padding-top: 1rem;
-	padding-bottom: 2rem;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -13,42 +9,33 @@
 	height: 100vh;
 }
 
-.inventory-tab-background {
+.wrapper {
+  display: flex;
+  flex-direction: column;
 	background-image: url('/src/assets/Inventory_tab.png');
 	image-rendering: pixelated;
 	background-repeat: no-repeat;
 	background-position: top;
 	background-size: contain;
 	width: 100%;
-	height: 97vh;
+  height: 100%;
 	background-size: 100% 100%;
+}
 
+.flexItemSmall {
+  flex: 1;
+}
+
+.flexItemBig {
+  flex: 3;
 }
 
 .healthBar {
 	max-width: 600px;
-	position: fixed;
-	top: 0;
-	left: 0;
 	width: 100%;
 	height: 2.5em;
 	border-radius: 0;
 	z-index: 2;
-}
-
-@media (min-width: 601px) {
-	#root {
-		left: 50%;
-		transform: translateX(-50%); /* Centers the element */
-	}
-	.healthBar {
-		top: -1.5em;
-		left: 50%;
-		transform: translateX(-50%); /* Centers the element */
-	}
-	.stats {
-		bottom: 6.5em;
-	}
 }
 
 h2 {
@@ -63,6 +50,7 @@ h2 {
 	justify-content: center;
 	max-width: 600px;
 	.logo {
+    padding: 25px;
 		width: 60%;
 		will-change: filter;
 		transition: filter 300ms;
@@ -90,6 +78,7 @@ h2 {
 	justify-content: center;
 	max-width: 600px;
 	.logo {
+    padding: 25px;
 		width: 60%;
 		will-change: filter;
 		transition: filter 300ms;
@@ -183,7 +172,6 @@ progress {
 
 .info {
 	margin-top: 8px;
-	height: auto;
 	min-height: 3em;
 	border-radius: 0;
 	text-align: center;

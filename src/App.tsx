@@ -115,15 +115,14 @@ function App() {
     [setGoalLoc, setGoal]
   );
 
-  return (
-    <>
-      <progress
-        className="healthBar"
-        id="health"
-        value={health}
-        max="78"
-      ></progress>
-      <div className="inventory-tab-background">
+  return (<div id='root' style={{ filter: health === 0 ? 'grayscale(100%)' : '' }}>
+    <progress
+      className="healthBar"
+      id="health"
+      value={health}
+      max="78" />
+    <div className="wrapper">
+      <div className='flexItemSmall'>
         <h2>Strange Device</h2>
         {takingDmg && (
           <Hitsplat
@@ -139,38 +138,40 @@ function App() {
           ref={inputRef}
           onChange={(e) => {
             HandleUpdateGoal(e);
-            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value)){
+            if (objectives.some(o => o.goalKeyword.toLowerCase() === e.target.value.toLowerCase())){
               // if we have typed a goal, blur to disable phone keyword;
               e.target.blur();
             }
           }}            
-        ></input>
-        <button
-          type="button"
-          style={{ filter: orbText.style + (goal == '' ? ' grayscale(100%)' : '') }}
-          className={orbText.feel && orbText.distance <= 5 ? "deviceBtnShake" : "deviceBtn"}
-          disabled={goal == ''}
-          onClick={() => !takingDmg && HandleUpdateDamage()}
-        >
-          <img src={strangeDevice} className="logo" alt="strange device" />
-        </button>
+          />
+      </div>
+      <button
+        type="button"
+        style={{ filter: orbText.style + (goal == '' ? ' grayscale(100%)' : '') }}
+        className={takingDmg || (orbText.feel && orbText.distance <= 5) ? "flexItemBig deviceBtnShake" : "flexItemBig deviceBtn"}
+        disabled={goal == ''}
+        onClick={() => !takingDmg && HandleUpdateDamage()}
+      >
+        <img src={strangeDevice} className="logo" alt="strange device" />
+      </button>
+      <div className='flexItemBig'>
         <h2 className="info">
-          <span>
+          <span className='flexItemSmall'>
             {orbText.feel}
           </span>
-          <span>
+          <span className='flexItemSmall'>
             {orbText.info}
           </span>
-          <span>
+          <span className='flexItemSmall'>
             {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
-          <span>
+          <span className='flexItemSmall'>
             {orbText.feel && Math.floor(goalDistance.distance) + " meters"}
           </span>
         </h2>
       </div>
-    </>
-  );
+    </div>
+  </div>);
 }
 
 export default App;
