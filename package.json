@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist --nojekyll"
+    "deploy": "echo 'strangedevi.se' > dist/CNAME && gh-pages -d dist --nojekyll"
   },
   "dependencies": {
     "geolocation-utils": "^1.2.6",
