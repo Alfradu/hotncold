@@ -66,14 +66,23 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setTickUntilHeal(old => old - 1 < 0 ? 9 : old - 1);
+    setTickUntilHeal(old => {
+      const newTick = old - 1;
+      if (newTick < 0) {
+        return 9;
+      }
+      return newTick;
+    });
 
+  }, [activeTick]);
+
+  useEffect(() => {
     if (tickUntilHeal === 0) {
       setHealth(old => {
         return old + 10 > 78 ? 78 : old + 10;
       });
     }
-  }, [activeTick, tickUntilHeal]);
+  }, [tickUntilHeal]);
 
   useEffect(() => {
     window.sessionStorage.setItem('health', health.toString());
@@ -129,7 +138,6 @@ function App() {
       });
       setGoal(objective.goalKeyword);
 
-      console.log("gello")
       window.sessionStorage.setItem('goal', objective.goalKeyword);
       window.sessionStorage.setItem('goalLoc', JSON.stringify(goalLoc));
     },
