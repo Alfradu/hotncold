@@ -40,6 +40,13 @@ function App() {
 
   useEffect(() => {
     setGoal(initGoal);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          console.log('asked user for location access');
+        }
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
