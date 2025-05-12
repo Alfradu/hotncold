@@ -114,7 +114,9 @@ function App() {
         },
         () => {
           console.log('Unable to retrieve your location');
-          setTakingDmg(false);
+          setTimeout(() => {
+            setTakingDmg(false);
+          }, 500);
         },
         {
           enableHighAccuracy: true,
@@ -123,7 +125,9 @@ function App() {
       );
     } else {
       console.log('Unable to retrieve your location');
-      setTakingDmg(false);
+      setTimeout(() => {
+        setTakingDmg(false);
+      }, 500);
       return;
     }
   }, [health, takingDmg, goalLoc]);
