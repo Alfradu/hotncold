@@ -37,7 +37,7 @@ function App() {
   const [teamSelected, setGoalSelected] = useState<boolean>(initGoal !== '');
   const [activeTick, setActiveTick] = useState<number>(0);
   const [tickUntilHeal, setTickUntilHeal] = useState<number>(10);
-  
+
   useEffect(() => {
     setGoal(initGoal);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +58,7 @@ function App() {
         return old + 1;
       })
     }, 600);
-    
+
     return () => {
       clearInterval(interval);
     };
@@ -73,7 +73,7 @@ function App() {
         return old + 10 > 78 ? 78 : old + 10;
       });
     }
-  }, [activeTick]);
+  }, [activeTick, tickUntilHeal]);
 
   useEffect(() => {
     window.sessionStorage.setItem('health', health.toString());
@@ -171,8 +171,8 @@ function App() {
       value={health}
       max="78" />
     <div className="amazingtext">
-      <span style={{ opacity: activeTick === 1 ? 1 : 0}}>1 </span>
-      <span style={{ opacity: activeTick === 2 ? 1 : 0}}>2 </span>
+      <span style={{ opacity: activeTick === 1 ? 1 : 0 }}>1 </span>
+      <span style={{ opacity: activeTick === 2 ? 1 : 0 }}>2 </span>
     </div>
     <div className="wrapper">
       <div className='flexItemSmall'>
@@ -207,7 +207,7 @@ function App() {
             {orbText.feel && "The orb pulls " + headingToOrientation(normalizeHeading(goalDistance.heading))}
           </span>
           <span className='flexItemSmall'>
-            {orbText.feel && Math.floor(goalDistance.distance) && Math.floor(goalDistance.distance) < 500 && + " meters"}
+            {orbText.feel && Math.floor(goalDistance.distance) < 500 && Math.floor(goalDistance.distance) + " meters"}
           </span>
         </h2>
       </div>
