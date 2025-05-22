@@ -208,7 +208,7 @@ function App() {
       <button
         type="button"
         style={{ filter: orbText.style + (goal == '' ? ' grayscale(100%)' : '') }}
-        className={takingDmg || (orbText.feel && orbText.distance <= 5) ? "flexItemBig deviceBtnShake" : "flexItemBig deviceBtn"}
+        className={takingDmg || (orbText.feel && orbText.distance <= 50) ? "flexItemBig deviceBtnShake" : "flexItemBig deviceBtn"}
         disabled={goal == ''}
         onClick={() => !takingDmg && HandleUpdateDamage()}
       >

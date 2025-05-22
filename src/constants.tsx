@@ -71,11 +71,11 @@ export type Level = {
 }
 
 export const levels: Level[] = [
-	{ feel: 'The Device is Ice Cold', info: 'You are no where near the dig spot.', distance: 2000, style: '' },
-	{ feel: 'The Device is Very Cold', info: 'You are very far away from the dig spot.', distance: 1500, style: 'hue-rotate(20deg)' },
-	{ feel: 'The Device is Cold', info: 'You are far away from the dig spot.', distance: 1000, style: 'hue-rotate(30deg)' },
+	{ feel: 'The Device is Ice Cold', info: 'You are no where near the spot.', distance: 2000, style: '' },
+	{ feel: 'The Device is Very Cold', info: 'You are very far away from the spot.', distance: 1500, style: 'hue-rotate(20deg)' },
+	{ feel: 'The Device is Cold', info: 'You are far away from the spot.', distance: 1000, style: 'hue-rotate(30deg)' },
 	{ feel: 'The Device is Warm', info: 'You are getting close.', distance: 700, style: 'hue-rotate(40deg)' },
-	{ feel: 'The Device is Hot', info: 'You are close.', distance: 500, style: 'hue-rotate(50deg)' },
-	{ feel: 'The Device is Very Hot', info: 'You are very close.', distance: 250, style: 'hue-rotate(60deg)' },
-	{ feel: 'The Device is Incredibly Hot', info: 'You are almost at the dig spot.', distance: 100, style: 'hue-rotate(70deg)' },
-	{ feel: 'The Device is Visibly Shaking', info: 'You are probably on top of the dig spot - look for a diggable spot now!', distance: 50, style: 'hue-rotate(90deg) saturate(2)' }];
+	{ feel: 'The Device is Hot', info: 'You are close.', distance: 400, style: 'hue-rotate(50deg)' },
+	{ feel: 'The Device is Very Hot', info: 'You are very close.', distance: 150, style: 'hue-rotate(60deg)' },
+	{ feel: 'The Device is Incredibly Hot', info: 'You are almost at the spot.', distance: 50, style: 'hue-rotate(70deg)' },
+	{ feel: 'The Device is Visibly Shaking', info: 'You are very very close - Search for the mark now!!', distance: 10, style: 'hue-rotate(90deg) saturate(2)' }];
