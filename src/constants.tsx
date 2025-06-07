@@ -1,27 +1,27 @@
 export const objectives: Objective[] =
 	[
 		{
-			goalKeyword: "Dragon scimitar", //park1 team1 step1
+			goalKeyword: "Abyssal whip", //park1 team1 step1
 			latitude: 59.862274,
 			longitude: 17.617039
 		},
 		{
-			goalKeyword: "Abyssal whip", //park2 team2 step1
+			goalKeyword: "Dragon scimitar", //park2 team2 step1
 			latitude: 59.862270,
 			longitude: 17.620841
 		},
 		{
-			goalKeyword: "Shark", //park4 team1 step2
+			goalKeyword: "Lobster", //park4 team1 step2
 			latitude: 59.860323,
 			longitude: 17.622887
 		},
 		{
-			goalKeyword: "Lobster", //park3 team2 step2
+			goalKeyword: "Shark", //park3 team2 step2
 			latitude: 59.861370,
 			longitude: 17.611900
 		},
 		{
-			goalKeyword: "Wyrmling bones", //stubbestabby team2 step5
+			goalKeyword: "Ourg bones", //stubbestabby team2 step5
 			latitude: 59.859910,
 			longitude: 17.601400
 		},
@@ -41,12 +41,12 @@ export const objectives: Objective[] =
 			longitude: 17.633520
 		},
 		{
-			goalKeyword: "Bandos godsword", // höganäsparken team1 step5
+			goalKeyword: "Fremennik blade", // höganäsparken team1 step5
 			latitude: 59.866260,
 			longitude: 17.643300
 		},
 		{
-			goalKeyword: "Bandos godsword", // semijnarieparken team1 step3
+			goalKeyword: "Rune chainbody", // semijnarieparken team1 step3
 			latitude: 59.867660,
 			longitude: 17.621580
 		}
